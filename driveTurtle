@@ -1,0 +1,66 @@
+import processing.serial.*;
+import cc.arduino.*;
+
+Arduino arduino;
+
+void setup()
+{
+  size(800, 800);
+  arduino = new Arduino(this, Arduino.list()[1], 57600); 
+}
+float x = 200;
+float y = 200;
+float r = 0;
+void draw()
+{
+background(244);
+if(arduino.analogRead(1) >=1023)
+  r += 2;
+if(arduino.analogRead(6) >=1023)
+  r -= 2;
+translate(0, 800);
+translate(x, -y);
+rotate(radians(r));
+x += (0.25)*(sin(radians(r)));
+y += (0.25)*(cos(radians(r)));
+System.out.println("sin: " + sin(radians(r)));
+System.out.println("deg: " + r);
+// Head 
+fill(5,103,11);
+ellipse(0, -150, 70, 90);
+
+//limbs
+ellipse(-80, -60, 120, 40);
+ellipse(80, -60, 120, 40);
+ellipse(-80, 60, 120, 40);
+ellipse(80, 60, 120, 40);
+
+
+
+//shell, top layer
+fill(90,60,13);
+ellipse(0, 0, 220, 280);
+
+
+
+}
+
+/* translate(x, y);
+// Head 
+fill(5,103,11);
+ellipse(200, 50, 70, 90);
+
+//limbs
+ellipse(120, 140, 120, 40);
+ellipse(280, 140, 120, 40);
+ellipse(120, 260, 120, 40);
+ellipse(280, 260, 120, 40);
+
+
+
+//shell, top layer
+fill(90,60,13);
+ellipse(200,200, 220, 280);
+System.out.println("mouse x = " + mouseX);
+System.out.println("mouse y = " + mouseY);
+*/
